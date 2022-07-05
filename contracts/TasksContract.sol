@@ -8,6 +8,14 @@ contract TasksContract {
         createTask("Task #1", "Something to do.");
     }
 
+    event TaskCreated(
+        uint256 id,
+        string title,
+        string description,
+        bool done,
+        uint256 createdAt
+    );
+
     struct Task {
         uint256 id;
         string title;
@@ -29,6 +37,13 @@ contract TasksContract {
             block.timestamp
         );
         tasksCount++;
+        emit TaskCreated(
+            tasksCount,
+            _title,
+            _description,
+            false,
+            block.timestamp
+        );
     }
 
     function toggleDone(uint256 _id) public {

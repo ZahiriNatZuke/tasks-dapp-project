@@ -1,6 +1,6 @@
 const TasksContract = artifacts.require("TasksContract");
 
-contract('TasksContract', function (accounts) {
+contract('TasksContract', function () {
 
   let contractInstance;
 
@@ -30,13 +30,27 @@ contract('TasksContract', function (accounts) {
 
   it("create a task", async () => {
     const tasksCounter = await contractInstance.tasksCount();
-    await contractInstance.createTask("Task #2", "Something to do.");
+    await contractInstance.createTask("Task #2", "Something to do #2.");
     const newTasksCounter = await contractInstance.tasksCount();
     const task = await contractInstance.tasks(tasksCounter);
+
     assert.equal(newTasksCounter, +tasksCounter + 1);
     assert.equal(task.id.toNumber(), tasksCounter);
     assert.equal(task.title, "Task #2");
-    assert.equal(task.description, "Something to do.");
+    assert.equal(task.description, "Something to do #2.");
+    assert.equal(task.done, false);
+  });
+
+  it("create a task and test event", async () => {
+    const tasksCounter = await contractInstance.tasksCount();
+    const result = await contractInstance.createTask("Task #3", "Something to do #3.");
+    const newTasksCounter = await contractInstance.tasksCount();
+    const task = result.logs[0].args;
+
+    assert.equal(newTasksCounter.toNumber(), +tasksCounter + 1);
+    assert.equal(task.id.toNumber(), newTasksCounter.toNumber());
+    assert.equal(task.title, "Task #3");
+    assert.equal(task.description, "Something to do #3.");
     assert.equal(task.done, false);
   });
 
