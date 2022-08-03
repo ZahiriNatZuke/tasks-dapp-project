@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply h-screen;
+}
+
+.card {
+    @apply flex flex-col rounded-box bg-black/70 shadow-sm p-4;
+}
+
+.header-card {
+    @apply flex flex-row justify-between items-center;
+}
+
+.card-title {
+    @apply text-2xl font-light text-amber-300;
+}
+
+.card-description {
+    @apply pl-2 font-semibold text-white/80;
+}
+
+.divider {
+    height: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
