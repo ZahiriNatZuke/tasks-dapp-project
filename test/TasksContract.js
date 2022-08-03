@@ -19,13 +19,7 @@ contract('TasksContract', function () {
 
     it('Check tasks list', async () => {
         const tasksCounter = await contractInstance.tasksCount();
-        assert.equal(tasksCounter, 1);
-
-        const task = await contractInstance.tasks(tasksCounter - 1);
-        assert.equal(task.id.toNumber(), tasksCounter);
-        assert.equal(task.title, 'Task #1');
-        assert.equal(task.description, 'Something to do.');
-        assert.equal(task.done, false);
+        assert.equal(tasksCounter, 0);
     });
 
     it('Create a task', async () => {

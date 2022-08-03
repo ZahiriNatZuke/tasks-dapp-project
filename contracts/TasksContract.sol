@@ -5,7 +5,6 @@ contract TasksContract {
     uint256 public tasksCount = 0;
 
     constructor() {
-        createTask("Task #1", "Something to do.");
     }
 
     event TaskCreated(uint256 id, string title, string description, bool done, uint256 createdAt);
@@ -22,12 +21,11 @@ contract TasksContract {
 
     mapping(uint256 => Task) public tasks;
 
-    function createTask(string memory _title, string memory _description)
-    public
-    {
-        tasks[tasksCount] = Task(tasksCount + 1, _title, _description, false, block.timestamp);
+    function createTask(string memory _title, string memory _description) public {
+        uint256 id = tasksCount + 1;
+        tasks[tasksCount] = Task(id, _title, _description, false, block.timestamp);
         tasksCount++;
-        emit TaskCreated(tasksCount, _title, _description, false, block.timestamp);
+        emit TaskCreated(id, _title, _description, false, block.timestamp);
     }
 
     function toggleDone(uint256 _id) public {
